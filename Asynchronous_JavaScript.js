@@ -1,5 +1,3 @@
-
-
 // const dependent = true;
 
 // function simple(callback) {
@@ -25,8 +23,6 @@
 //   delay(delayTime);
 // });
 
-
-
 const orderNow = true;
 
 function bookOrder() {
@@ -35,74 +31,62 @@ function bookOrder() {
   const promise = new Promise(function (resolve, reject) {
     setTimeout(function () {
       console.log("Order Placed");
-      
+
       if (orderNow) {
         resolve("Order Placed");
       } else {
         reject("error");
       }
-    },100);
+    }, 100);
   });
   return promise;
 }
 function orderProceing() {
-
-
   const promise = new Promise(function (resolve, reject) {
     setTimeout(function () {
-      console.log('Processing Order');
-      
-     if(true){
-             
+      console.log("Processing Order");
 
-      resolve("Processing Order");
-     }else{
-      reject("Processing Failed")
-     }
-      
-    },1000);
+      if (true) {
+        resolve("Processing Order");
+      } else {
+        reject("Processing Failed");
+      }
+    }, 1000);
   });
   return promise;
 }
 
 function processingShipped() {
   const promise = new Promise(function (resolve, reject) {
-  
-    
-   setTimeout (function(){
-      console.log('Shipped');
-    resolve("Shipped");
-   
-
-   },1000)
+    setTimeout(function () {
+      console.log("Shipped");
+      resolve("Shipped");
+    }, 1000);
   });
   return promise;
 }
 
 function delivered() {
   const promise = new Promise(function (resolve, reject) {
+    setTimeout(function () {
+      console.log("delivered");
 
-
-
-
-  setTimeout(function(){
-    console.log('delivered');
-
-resolve("delivered")
-
-  },1000)
-   
+      resolve("delivered");
+    }, 1000);
   });
   return promise;
 }
 
-bookOrder()
-  .then(orderProceing)
-  .then(processingShipped)
-  .then(delivered)
-  .then(function (value) {
-    console.log("falin : "+value);
-  })
-  .catch(function (error) {
+async function aSync() {
+  try {
+    await bookOrder();
+    await orderProceing();
+    await processingShipped();
+    const messages = await delivered();
+    console.log( "fanla : " + messages);
+  } catch (error) {
     console.log(error);
-  });
+  }
+}
+
+aSync()
